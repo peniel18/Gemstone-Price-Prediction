@@ -9,6 +9,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer 
 from sklearn.pipeline import Pipeline 
 
+from src.utils.utils import save_object 
+
 
 
 @dataclass
