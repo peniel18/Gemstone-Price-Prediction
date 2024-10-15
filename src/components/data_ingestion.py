@@ -3,6 +3,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 import pandas as pd 
+from typing import Tuple
 #import numpy as np 
 from src.logger.Logging import logging
 from src.exception.exception import CustomException
@@ -28,7 +29,7 @@ class DataIngestion:
         
 
 
-    def InitialDataIngestion(self):
+    def InitialDataIngestion(self) -> Tuple[str, str]:
         logging.info("Data Ingestion Started")
         try: 
             # read data from source eg. from API or github
@@ -50,10 +51,7 @@ class DataIngestion:
 
            raise CustomException(e, sys)
         
-        return (
-                self.ingestion_config.train_data_path, 
-                self.ingestion_config.test_data_path
-            )
+        return (self.ingestion_config.train_data_path, self.ingestion_config.test_data_path)
 
 
 if __name__ == "__main__":
