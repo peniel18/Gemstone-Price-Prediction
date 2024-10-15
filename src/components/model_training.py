@@ -53,7 +53,7 @@ class ModelTrainer:
             logging.info(f'Best Model Found , Model Name : {best_model_name} , R2 Score : {best_model_score}')
 
             save_object(
-                file_name=self.ModelTrainerConfig.modelName,  
+                file_path=self.ModelTrainerConfig.trainedModelPath,  
                 obj=best_model
             )
             

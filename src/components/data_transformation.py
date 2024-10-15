@@ -22,7 +22,6 @@ class DataTransformationConfig:
     current_dir = os.getcwd()
     # path for the preprocessor in the artifacts folder 
     preprocessorObjPath = os.path.join(current_dir, "..", "..", "artifacts", "preprocessor.pkl")
-    print(preprocessorObjPath)
     preprocessorName = "preprocessor.pkl"
 
 
@@ -102,9 +101,9 @@ class DataTransformation:
             
             logging.info("Save the Preprocessor Object as a pickle file")
             save_object(
-                file_name=self.DataTransformationConfig.preprocessorName, 
-                obj=preprocessor
-            )
+                file_path=self.DataTransformationConfig.preprocessorObjPath, 
+                obj=preprocessor 
+                )
 
             return (TrainData, TestData)
 
