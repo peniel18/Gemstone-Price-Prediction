@@ -24,6 +24,9 @@ def predict_datapoint():
             color = request.form.get("color"),
             clarity = request.form.get("clarity"),     
         )
+        df = data.getDataAsDataFrame()
+        predictions = PredictionPipeline().predict(df)
+        return render_template("result.html", predictions)
 
 
 if __name__ == "__main__":
