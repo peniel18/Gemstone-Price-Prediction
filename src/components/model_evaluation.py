@@ -49,6 +49,12 @@ class ModelEvaluation:
                 mlflow.log_metrics("mae", mae)
                 mlflow.log_metrics("r2", r2)   
 
+
+                if tracking_url_type_store != "file":
+                    mlflow.sklearn.log_model(model, "model", registered_model_name="ml_model")
+                else:
+                    mlflow.sklearn.log_model(model, "model")
+
         except Exception as e: 
             logging.info()
             raise CustomException(e, sys)
