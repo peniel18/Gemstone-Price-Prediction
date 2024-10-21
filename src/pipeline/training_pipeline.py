@@ -6,7 +6,7 @@ from src.exception.exception import CustomException
 from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
 from src.components.model_training import ModelTrainer
-
+from src.components.model_evaluation import ModelEvaluation
 
 IngestionObj = DataIngestion()
 #get train and test data paths 
@@ -18,3 +18,6 @@ trainData, testData = dataTransformation.InitialDataTransformation(train_path=tr
 # data training 
 modelTrainer = ModelTrainer()
 modelTrainer.InitiateModelTraining(trainData=trainData, testData=testData)
+# model evaluation 
+modelEvaluation = ModelEvaluation()
+modelEvaluation.InitiateModelEvaluation(trainData=trainData, testData=testData)

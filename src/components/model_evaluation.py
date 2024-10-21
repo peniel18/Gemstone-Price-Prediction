@@ -45,9 +45,9 @@ class ModelEvaluation:
                 predictions = model.predict(X_test)
                 rmse, mae, r2 = self.eval_metrics(y_test, preds=predictions)
                 # log metrics 
-                mlflow.log_metrics("rmse", rmse) 
-                mlflow.log_metrics("mae", mae)
-                mlflow.log_metrics("r2", r2)   
+                mlflow.log_metric("rmse", rmse) 
+                mlflow.log_metric("mae", mae)
+                mlflow.log_metric("r2", r2)   
 
 
                 if tracking_url_type_store != "file":
@@ -56,6 +56,6 @@ class ModelEvaluation:
                     mlflow.sklearn.log_model(model, "model")
 
         except Exception as e: 
-            logging.info()
+            logging.info("Error Occured in model_evaluation.py")
             raise CustomException(e, sys)
     
