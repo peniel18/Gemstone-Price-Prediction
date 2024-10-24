@@ -21,3 +21,16 @@ modelTrainer.InitiateModelTraining(trainData=trainData, testData=testData)
 # model evaluation 
 modelEvaluation = ModelEvaluation()
 modelEvaluation.InitiateModelEvaluation(trainData=trainData, testData=testData)
+
+class TrainingPipeline: 
+    def start_data_ingestion(self):
+        try: 
+            dataIngestion = DataIngestion()
+            trainPath, testPath = dataIngestion.InitialDataIngestion()
+            return trainPath, testPath
+        except Exception as e:
+            logging.error("Error occured during data ingestion") 
+            CustomException(e, sys)
+
+    def start_data_transformation(self):
+        pass 
