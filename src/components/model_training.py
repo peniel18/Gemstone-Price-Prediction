@@ -13,7 +13,7 @@ from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet
 @dataclass
 class ModelTrainerConfig:
     current_dir = os.getcwd()
-    trainedModelPath = os.path.join(current_dir, "..", "..",  "artifacts", "model.pkl")
+    trainedModelPath = os.path.join(current_dir, "artifacts", "model.pkl")
     modelName = "model.pk1"
 
 class ModelTrainer:
