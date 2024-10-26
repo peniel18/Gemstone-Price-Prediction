@@ -62,3 +62,48 @@ with DAG(
         trainData = np.array(data_transformation_artifact["trainData"])
         testData = np.array(data_transformation_artifact["testData"]) 
         trainingPipeline.start_model_training(trainData=trainData, testData=testData)
+
+    ## push to cloud 
+
+
+    data_ingestion_task = PythonOperator(
+        task_id = "data_ingestion", 
+        python_callable = data_ingestion
+    )
+
+    data_ingestion_task.doc_md  = dedent(
+        """
+        \ ingestion task 
+        this task creates a train and test file 
+        """
+    )
+
+    data_transformation_task = PythonOperator(
+        task_id = "data_transformation", 
+        python_callable = data_transformation
+    )
+    data_transformation_task.doc_md = dedent(
+        """
+        \ Transformation Task 
+        performs the transformation 
+        """
+    )
+
+    model_trainer_task = PythonOperator(
+        task_id = "model_trainer", 
+        python_callable = model_trainer
+    )
+
+    model_trainer_task.doc_md = dedent(
+        """
+        \
+        model trainer 
+        performs model training 
+        """
+    )
+
+    # push to cloud task here 
+
+
+
+data_ingestion_task >> data_transformation_task >> model_trainer_task
