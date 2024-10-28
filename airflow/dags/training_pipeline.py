@@ -3,6 +3,7 @@ import json
 from textwrap import dedent
 import pendulum 
 from airflow import DAG 
+from airflow.hooks.S3_hook import S3Hook
 from airflow.operators.python import PythonOperator 
 from src.pipeline.training_pipeline import TrainingPipeline
 
@@ -63,7 +64,23 @@ with DAG(
         testData = np.array(data_transformation_artifact["testData"]) 
         trainingPipeline.start_model_training(trainData=trainData, testData=testData)
 
+
+    def model_evaluation(**kwargs):
+        import numpy as np 
+        ti = kwargs["ti"]
+        data_transformation_artifact = ti.xcom_pull(
+            task_ids = "data_transformation", 
+            key = "data_transformation_artifacts"
+        )
+        trainData = np.array(data_transformation_artifact["trainData"])
+        testData = np.array(data_transformation_artifact["testData"])
+        trainingPipeline.eval_model_metrics(trainData=trainData, testData=testData)
     ## push to cloud 
+
+    def push_artifacts_to_s3(**kwargs):
+        import os 
+        bucket_name = "gemsartifacts"
+        artifacts_folder = "/app/artifacts"
 
 
     data_ingestion_task = PythonOperator(
@@ -102,8 +119,25 @@ with DAG(
         """
     )
 
+    model_evaluation_task = PythonOperator(
+        task_id = "model_evaluation", 
+        python_callable = model_evaluation
+        )
+
+    model_evaluation_task.doc_md = dedent(
+        """
+        \ 
+        model evaluation
+
+        performs model evaluation
+
+        """
+    )
+
+
+
     # push to cloud task here 
 
 
 
-data_ingestion_task >> data_transformation_task >> model_trainer_task
+data_ingestion_task >> data_transformation_task >> model_trainer_task >> model_evaluation_task

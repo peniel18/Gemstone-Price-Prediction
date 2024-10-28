@@ -1,0 +1,8 @@
+pandas 
+scikit-learn 
+numpy 
+seaborn 
+Flask
+mlflow==2.2.2
+dvc 
+apache-airflow[aws]
