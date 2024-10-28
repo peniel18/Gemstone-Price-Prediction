@@ -42,15 +42,28 @@ class TrainingPipeline:
             logging.error("Error occured from function start_model_training")
             CustomException(e, sys)
 
+
+    def eval_model_metrics(self, trainData, testData):
+        try: 
+            modelEvaluator = ModelEvaluation()
+            modelEvaluator.InitiateModelEvaluation(trainData=trainData, testData=testData)
+        except Exception as e: 
+            CustomException(e, sys)
+
     def start_training(self):
         try: 
             logging.info("Started Training model")
             trainPath, testPath = self.start_data_ingestion()
             trainData, testData = self.start_data_transformation(trainPath, testPath)
             self.start_model_training(trainData, testData)
+            self.eval_model_metrics(trainData, testData)
         except Exception as e: 
             logging.error("Error occured during training process")
             CustomException(e, sys)
         
 
-        
+    
+
+if __name__ == "__main__":
+    trainer = TrainingPipeline()
+    trainer.start_training()
