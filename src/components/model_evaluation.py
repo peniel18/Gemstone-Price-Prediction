@@ -14,6 +14,8 @@ from urllib.parse import urlparse
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score 
 
 
+
+
 @dataclass
 class ModelEvaluationConfig:
     pass 
@@ -33,13 +35,14 @@ class ModelEvaluation:
     
     def InitiateModelEvaluation(self, trainData, testData):
         try: 
-            X_test, y_test = testData[:,:-1], testData[:, -1]
+            X_test, y_test = trainData[:,:-1], testData[:, -1]
             model_path = os.path.join("artifacts", "model.pkl")
             model = load_object(model_path)
 
-            mlflow.set_registry_uri("")
+            MLFLOW_TRACKING_URI = "https://dagshub.com/peniel18/Gemstone-Price-Prediction.mlflow"
+            mlflow.set_registry_uri(MLFLOW_TRACKING_URI)
             tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
-            print(tracking_url_type_store)
+            #print(tracking_url_type_store)
 
             with mlflow.start_run(): 
                 predictions = model.predict(X_test)

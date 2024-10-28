@@ -11,10 +11,10 @@ trainingPipeline = TrainingPipeline()
 
 with DAG(
     dag_id = "gemstone_training_pipeline", 
-    deflaut_args = {"retries": 2}, 
+    default_args = {"retries": 2}, 
     description = "Training Pipeline", 
     schedule = "@weekly", 
-    start_data = pendulum.datetime(2024, 10, 25), 
+    start_date = pendulum.datetime(2024, 10, 25), 
     catchup = False, 
     tags= ["machine_learning", "regression", "gemstone"]
 ) as dag: 
