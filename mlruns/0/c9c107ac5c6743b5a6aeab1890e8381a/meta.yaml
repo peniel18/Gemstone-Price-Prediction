@@ -1,0 +1,15 @@
+artifact_uri: file:///mnt/c/Users/peniel/Desktop/end%20to%20end%20diamond%20prediction/Gemstone-Price-Prediction-main/mlruns/0/c9c107ac5c6743b5a6aeab1890e8381a/artifacts
+end_time: 1729553501151
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c9c107ac5c6743b5a6aeab1890e8381a
+run_name: serious-lynx-180
+run_uuid: c9c107ac5c6743b5a6aeab1890e8381a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729553429674
+status: 3
+tags: []
+user_id: peniel

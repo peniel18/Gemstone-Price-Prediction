@@ -1,0 +1,15 @@
+artifact_uri: file:///mnt/c/Users/peniel/Desktop/end%20to%20end%20diamond%20prediction/Gemstone-Price-Prediction-main/mlruns/0/cd34dfeec028416bab9adc9202c02eca/artifacts
+end_time: 1729553113292
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: cd34dfeec028416bab9adc9202c02eca
+run_name: respected-dog-842
+run_uuid: cd34dfeec028416bab9adc9202c02eca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729553112689
+status: 4
+tags: []
+user_id: peniel
