@@ -1,0 +1,26 @@
+version: '3'
+services:
+  airflow:
+    build: 
+      context: ./
+      dockerfile: Dockerfile.airflow
+    image: airflowimage
+    container_name: gemstone-prediction-airflow
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src:/app/src
+      - ./airflow/dags:/app/airflow/dags
+    environment:
+      - PYTHONPATH=/app
+
+  flaskapp:
+    build: 
+      context: ./ 
+      dockerfile: dockerfile.flask 
+    image: flaskimage
+    container_name: gemstone-prediction-flask
+    ports:
+      - "80:80"
+
+
