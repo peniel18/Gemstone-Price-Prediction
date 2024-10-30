@@ -12,7 +12,8 @@ import mlflow
 import mlflow.sklearn
 from urllib.parse import urlparse 
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score 
-
+import dagshub
+from src.components.data_ingestion import DataIngestionConfig
 
 
 
@@ -39,10 +40,12 @@ class ModelEvaluation:
             model_path = os.path.join("artifacts", "model.pkl")
             model = load_object(model_path)
 
+            dagshub.init(repo_owner='peniel18', repo_name='Gemstone-Price-Prediction', mlflow=True)
+
             MLFLOW_TRACKING_URI = "https://dagshub.com/peniel18/Gemstone-Price-Prediction.mlflow"
-            mlflow.set_registry_uri(MLFLOW_TRACKING_URI)
+            mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
             tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
-            #print(tracking_url_type_store)
+            
 
             with mlflow.start_run(): 
                 predictions = model.predict(X_test)
@@ -51,8 +54,9 @@ class ModelEvaluation:
                 mlflow.log_metric("rmse", rmse) 
                 mlflow.log_metric("mae", mae)
                 mlflow.log_metric("r2", r2)   
-
-
+                # log artifacts 
+                model_dir = DataIngestionConfig.artifacts_dir
+                mlflow.log_artifact(model_dir) 
                 if tracking_url_type_store != "file":
                     mlflow.sklearn.log_model(model, "model", registered_model_name="ml_model")
                 else:
